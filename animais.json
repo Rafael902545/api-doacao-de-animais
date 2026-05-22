@@ -26,5 +26,10 @@
         "especie": "peixe",
         "idade": 2,
         "abrigo_id": 4
+    },
+    {
+        "nome": "Abner",
+        "especie": "cachorro",
+        "idade": 4
     }
 ]
