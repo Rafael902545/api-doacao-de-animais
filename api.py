@@ -99,10 +99,8 @@ def post_animais():
         return jsonify({"Mensagem": "Campo nome é obrigatorio"}), 400
     
     nome_animal = dados.get('nome')
-    if not all(part.isalpha() for part in nome_animal.split()):
+    if not nome_animal.isalpha():
         return jsonify({"erro": "O nome deve conter apenas letras"}), 422
-    if not nome_animal.istitle():
-        return jsonify({"erro": "O nome deve ter a primeira letra maiuscula"}), 422
     if not len(nome_animal) >= 2:
         return jsonify({"erro": "O nome não pode ser menor ou igual a 1 caractere"}), 422
     if not len(nome_animal) <= 20:
@@ -113,14 +111,16 @@ def post_animais():
 
     tipos_validos = ['cachorro', 'gato', 'passaro', 'peixe']
     if dados.get('especie') not in tipos_validos:
-        return jsonify({"Mensagem": "Tipo de usuario inválido!"}), 422
-    
+        return jsonify({"Mensagem": "Tipo de especie inválido!"}), 422
+
     if not dados.get('idade'):
         return jsonify({"Mensagem": "Campo idade é obrigatorio"}), 400
     
     idade = dados.get('idade')
     if not isinstance(idade, int):
         return jsonify({"erro": "'idade' deve ser um número inteiro"}), 422
+    if not 0 <= idade <= 80:
+        return jsonify({"erro": "Campo idade deve ser entre 0 e 80"}), 422
     
     animais = carregar_animais()
 
@@ -143,10 +143,8 @@ def post_usuario():
         return jsonify({"Mensagem": "Campo nome é obrigatorio"}), 400
     
     nome_usuario = dados_usuario.get('nome')
-    if not all(part.isalpha() for part in nome_usuario.split()):
-        return jsonify({"erro": "Campo nome deve ter a primeira letra maiuscula"}), 422
-    if not nome_usuario.istitle():
-        return jsonify({"erro": "O nome deve se apenas letras"}), 422
+    if not nome_usuario.isalpha():
+        return jsonify({"erro": "Campo nome deve conter apenas letras"}), 422
     if not len(nome_usuario) >= 2:
         return jsonify({"erro": "O nome não pode ser menor ou igual a 1"}), 422
     if not len(nome_usuario) <= 154:
@@ -176,6 +174,8 @@ def post_usuario():
     email = dados_usuario.get('email')
     if not len(email) <= 256:
         return jsonify({"erro": "Campo email não pode ser maior que 256 caracteres"}), 422
+    if len(email) < 5:
+        return jsonify({"erro": "Campo email não pode ser menor que 5 caracteres"}), 422
     
     if not dados_usuario.get('endereco'):
         return jsonify({"Mensagem": "Campo endereço é obrigatorio"}), 400
@@ -183,6 +183,8 @@ def post_usuario():
     endereco = dados_usuario.get('endereco')
     if not len(endereco) <= 60:
         return jsonify({"erro": "Campo endereço não pode ser maior que 60 caracteres"}), 422
+    if len(endereco) < 5:
+        return jsonify({"erro": "Campo endereço não pode ser menor que 5 caracteres"}), 422
 
     usuario = carregar_usuarios()
 

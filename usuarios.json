@@ -1,8 +1,8 @@
 [
     {
         "id": 1,
-        "nome": "Abner Filho",
-        "cpf": "11111111111",
+        "nome": "Abner Filho Abner",
+        "cpf": "14930682942",
         "telefone": "45999264037",
         "email": "rafael@gmail",
         "endereco": "Rua 47909"
@@ -14,13 +14,5 @@
         "telefone": "45999264037",
         "email": "rafae@gmail",
         "endereco": "Rua 47909"
-    },
-    {
-        "nome": "Wagner",
-        "cpf": "68663713915",
-        "telefone": "45999264037",
-        "email": "rafae@gmail",
-        "endereco": "Rua 47909",
-        "id": 3
     }
 ]
