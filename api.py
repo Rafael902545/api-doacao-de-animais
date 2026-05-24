@@ -143,6 +143,8 @@ def post_usuario():
         return jsonify({"Mensagem": "Campo nome é obrigatorio"}), 400
     
     nome_usuario = dados_usuario.get('nome')
+    if not nome_usuario.istitle():
+        return jsonify({"erro": "Campo nome deve conter a primeira letra maiúscula"}), 422
     if not nome_usuario.isalpha():
         return jsonify({"erro": "Campo nome deve conter apenas letras"}), 422
     if not len(nome_usuario) >= 2:
@@ -214,9 +216,9 @@ def get_categorias():
 def atualizar_animal(id):
     animais = carregar_animais()
     dados = request.json
-    for usuario in animais:
-        if usuario.get('id') == id:
-            usuario.update(dados)
+    for animal in animais:
+        if animal.get('id') == id:
+            animal.update(dados)
             salvar_animais(animais)
             return jsonify({"Mensagem": "Ok"}), 200
     return jsonify({"Mensagem": "Não encontrado"}), 404
@@ -225,11 +227,11 @@ def atualizar_animal(id):
 def deletar_animal(id):
     animais = carregar_animais()
 
-    for usuario in animais:
-        if usuario.get('id') == id:
-            animais.remove(usuario)
+    for animal in animais:
+        if animal.get('id') == id:
+            animais.remove(animal)
             salvar_animais(animais)
-            return jsonify({"Mensagem": "Deletado"}), 204
+            return jsonify({"Mensagem": ""}), 204
 
     return jsonify({"Mensagem": "Não encontrado"}), 404
     
@@ -254,7 +256,7 @@ def deletar_usuario(id):
         if usuario.get('id') == id:
             usuarios.remove(usuario)
             salvar_usuarios(usuarios)
-            return jsonify({"Mensagem": "Deletado"}), 204
+            return jsonify({"Mensagem": ""}), 204
 
     return jsonify({"Mensagem": "Não encontrado"}), 404
     
@@ -279,7 +281,7 @@ def deletar_abrigo(id):
         if abrigo.get('id') == id:
             abrigos.remove(abrigo)
             salvar_abrigos(abrigos)
-            return jsonify({"Mensagem": "Deletado"}), 204
+            return jsonify({"Mensagem": ""}), 204
         
     return jsonify({"Mensagem": "Não encontrado"}), 404
 
