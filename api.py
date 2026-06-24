@@ -17,9 +17,9 @@ def salvar_animais(animais):
 def get_animais_pr_id(id):
     animais = carregar_animais()
 
-    for usuario in animais:
-        if usuario.get('id') == id:
-            return jsonify(usuario), 200
+    for animal in animais:
+        if animal.get('id') == id:
+            return jsonify(animal), 200
     return jsonify({"Mensagem": "Animal não encontrado"}), 404
 
 def carregar_abrigos():
@@ -99,8 +99,6 @@ def post_animais():
         return jsonify({"Mensagem": "Campo nome é obrigatorio"}), 400
     
     nome_animal = dados.get('nome')
-    if not nome_animal.isalpha():
-        return jsonify({"erro": "O nome deve conter apenas letras"}), 422
     if not len(nome_animal) >= 2:
         return jsonify({"erro": "O nome não pode ser menor ou igual a 1 caractere"}), 422
     if not len(nome_animal) <= 20:
@@ -145,8 +143,6 @@ def post_usuario():
     nome_usuario = dados_usuario.get('nome')
     if not nome_usuario.istitle():
         return jsonify({"erro": "Campo nome deve conter a primeira letra maiúscula"}), 422
-    if not nome_usuario.isalpha():
-        return jsonify({"erro": "Campo nome deve conter apenas letras"}), 422
     if not len(nome_usuario) >= 2:
         return jsonify({"erro": "O nome não pode ser menor ou igual a 1"}), 422
     if not len(nome_usuario) <= 154:
@@ -206,11 +202,11 @@ def carregar_json(arquivo):
 
 @app.get('/abrigos')
 def get_abrigos():
-    return jsonify(carregar_json('abrigos.json'))
+    return jsonify(carregar_json('abrigos.json')), 200
 
 @app.get('/categorias')
 def get_categorias():
-    return jsonify(["cachorro", "gato", "passaro", "peixe"])
+    return jsonify(["cachorro", "gato", "passaro", "peixe"]), 200
 
 @app.put('/animais/<int:id>')
 def atualizar_animal(id):
